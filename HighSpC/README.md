@@ -13,4 +13,4 @@
 
 ## chap3
 
-- 条件式も値を持つ。true => value:1, false => value:0
+- 条件式も値を持つ。 `true => value:1, false => value:0`
