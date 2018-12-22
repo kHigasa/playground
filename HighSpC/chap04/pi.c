@@ -9,6 +9,7 @@
 int main(int argc, char *argv[])
 {
     double x, y, insect_cnt;
+    time_t t1, t2;
     int i;
 
     insect_cnt = 0.0;
@@ -16,6 +17,7 @@ int main(int argc, char *argv[])
 
     srand(time(NULL));
 
+    t1 = time(NULL);
     while (i < 100000000) {
         x = (double) rand() / RAND_MAX;
         y = (double) rand() / RAND_MAX;
@@ -24,8 +26,11 @@ int main(int argc, char *argv[])
         }
         i++;
     }
+    t2 = time(NULL);
 
     printf("%f\n", insect_cnt / i * 4.0);
+
+    printf("process time = %ld sec\n", t2 - t1);
 
     return 0;
 }
