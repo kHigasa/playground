@@ -27,3 +27,6 @@
 - 上から条件に当てはまるラベルを見つけていくので *break*必須
 - あえてbreak文を使わない時、**//FALLTHRU**
 - break文まで到達しない場合、**//NOT REACHED**
+- `goto`🤢
+
+## chap5
