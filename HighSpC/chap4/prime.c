@@ -11,26 +11,20 @@ int main(int argc, char *argv[])
 
     end = 100;
 
-    i = 1;
-
-    while (i <= end) {
+    for (i = 1; i <= end; i = i + 1) {
         flag_not_prime = 0;
-        j = 2;
-        while (j < i) {
+        for (j = 2; j < i; j = j + 1) {
             if (i % j == 0) {
                 flag_not_prime = 1;
                 break;
             }
-            j++;
         }
         if (i == 1) {
-            i++;
             continue;
         }
         if (flag_not_prime == 0) {
             printf("%d\n", i);
         }
-        i++;
     }
     return 0;
 }
