@@ -40,4 +40,5 @@
 
 ## chap06
 
-- `include`はコンパイル時にテキストに置換されている。
+- `include`はプリプロセス時にテキストに置換されている。
+- 定義済みdefine`gcc -dM -xc -E /dev/null`
