@@ -52,3 +52,6 @@
 - 糖衣構文(syntax sugar)☺️
 - が、似て非なるもの ⭕️`ptr = array` ❌`array = ptr`
 - ぬるぽ 定石：`char *str = NULL; process; if(str == NULL) {A //process failure} else {B //process success}`
+- voidポインタでどんなデータ型のポインタでも保持できる
+
+## chap08
