@@ -1,5 +1,5 @@
-PROGRAM =       bit_field
-OBJS    =       bit_field.o
+PROGRAM =       calendar
+OBJS    =       calendar.o
 SRCS    =       $(OBJS:%.o=%.c)
 CC      =       gcc
 CFLAGS  =       -g -Wall
