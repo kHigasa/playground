@@ -1,0 +1,44 @@
+0000: //
+0001: // Created by andre on 2018-12-26.
+0002: //
+0003: 
+0004: #include <stdio.h>
+0005: #include <string.h>
+0006: 
+0007: int main(int argc, char **argv) {
+0008:     char buf[8192];
+0009:     char *c;
+0010:     int line_no;
+0011:     FILE *fp;
+0012: 
+0013:     if (argc != 2) {
+0014:         printf("usage: %s [filename]\n", *argv);
+0015:         return -1;
+0016:     }
+0017: 
+0018:     fp = fopen(argv[1], "r");
+0019:     if (fp == NULL) {
+0020:         printf("Can't open file\n");
+0021:         return -1;
+0022:     }
+0023: 
+0024:     line_no = 0;
+0025:     while ((fgets(buf, sizeof(buf), fp)) != NULL) {
+0026:         c = strchr(buf, '\n');
+0027:         if (c != NULL) {
+0028:             *c = '\0';
+0029:         }
+0030: 
+0031:         printf("%04d: %s\n", line_no++, buf);
+0032:     }
+0033: 
+0034:     if (feof(fp)) {
+0035:         printf("End of file\n");
+0036:     } else if (ferror(fp)) {
+0037:         printf("Error\n");
+0038:     }
+0039: 
+0040:     fclose(fp);
+0041: 
+0042:     return 0;
+0043: }
