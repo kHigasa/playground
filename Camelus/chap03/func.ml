@@ -46,3 +46,11 @@ let rec tailfact (n, res) =
   if n = 1 then res (* equal to res 1 *)
   else tailfact (n-1, n * res);;
 tailfact (4, 1);;
+
+let rec sum_of (f, n) = (* higher-order function *)
+  if n = 0 then 0 else sum_of (f, n-1) + f n;;
+
+let sum_of_square n =
+  let square x = x * x in sum_of (square, n);;
+let sum_of_cube n =
+  let cube x = x * x * x in sum_of (cube, n);;
