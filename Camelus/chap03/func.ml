@@ -49,8 +49,35 @@ tailfact (4, 1);;
 
 let rec sum_of (f, n) = (* higher-order function *)
   if n = 0 then 0 else sum_of (f, n-1) + f n;;
+let rec sum_curry_of f n =
+  if n = 0 then 0 else f n + sum_curry_of f (n-1);;
 
 let sum_of_square n =
   let square x = x * x in sum_of (square, n);;
 let sum_of_cube n =
   let cube x = x * x * x in sum_of (cube, n);;
+
+let sum_of_cube n = sum_of ((fun x -> x * x * x), n);;
+
+(fun x -> x * x) 7;;
+
+(* concatenate *)
+let concat (s1, s2) = s1 ^ s2 ^ s1;;
+let concat_curry s1 = fun s2 -> s1 ^ s2 ^ s1;;
+let concat_curry = fun s1 s2 -> s1 ^ s2 ^ s1;;
+let concat_curry s1 s2 = s1 ^ s2 ^ s1;; (* 二引数関数とも言えるがcurryingしてあるだけ *)
+(concat_curry "abc") "def";;
+let emphasize = concat_curry "_";;
+emphasize "OCaml";; (* 部分適用している: curryingされた関数の一部の引数を与え、特化した関数を作成 *)
+
+abs ~-3;; (* prefix operator: ~ *)
+~-.3.3;;
+
+(+);;
+( * );;
+
+let (^-^) x y = x * 2 + y * 3;; (* def infix operator *)
+9 ^-^ 6;;
+
+let ( !! ) x = x + 1;; (* prefix operator *)
+!!4;;
