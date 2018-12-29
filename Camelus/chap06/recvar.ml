@@ -16,3 +16,28 @@ string_of_student st1;;
 type teacher = { tname : string; office : string; ext : int };;
 type student_teacher = { s : student; t : teacher };;
 let stst = {s = {name = "Taro Yamada"; id = 123456}; t = {tname = "Akira Matsuda"; office = "142"; ext = 1234}};;
+(* ヴァリアントを定義 *)
+type figure = 
+  Point (* 英大文字から始まるのがconstructor *)
+| Circle of int
+| Rectangle of int * int
+| Square of int;;
+(* constructorを対応する型の値に適用してヴァリアントの値を構成 *)
+let c = Circle 3;;
+let figs = [Point; Square 5; Rectangle (4, 5); c];;
+(* Rectangleはintのペア1つではなく、intを2つ受け取るコンストラクタ(::も同様) *)
+let p = (1, 2) in Rectangle p;;
+(* ヴァリアントパターン *)
+let area_of_figure = function
+  Point -> 0
+| Circle r -> r * r * 3 (* Constructor pattern *)
+| Rectangle (x, y) -> x * y
+| Square x -> x * x;;
+area_of_figure c;;
+map area_of_figure figs;;
+let similar x y =
+  match (x, y) with
+    (Point, Point) | (Circle _, Circle _) | (Square _, Square _) -> true
+    | (Rectangle (11, 12), Rectangle (13, 14)) -> (13 * 12 - 14 * 11) = 0
+  | _ -> false;;
+similar (Rectangle (2, 4)) (Rectangle (1, 2));;
