@@ -82,3 +82,20 @@ let rec assoc a = function
   (a', b) :: rest -> if a = a' then b else assoc a rest;;
 assoc "Kagawa" city_phone;;
 assoc "Osaka" city_phone;;
+(* sorting *)
+let nextrand seed =
+  let a = 16807.0 and m = 2147483647.0 in
+  let t = a *. seed in t -. m *. floor (t /. m)
+  let rec randlist n seed tail =
+    if n = 0 then (seed, tail)
+    else randlist (n-1) (nextrand seed) (seed::tail);;
+randlist 10 1.0 [];;
+(* 挿入ソート：insersion sort *)
+let rec insert x = function
+  [] -> [x]
+  | y :: rest when x < y -> x :: (y :: rest)
+  | y :: rest -> y :: (insert x rest);;
+let rec insersion_sort = function
+  [] -> []
+  | x :: rest -> insert x (insersion_sort rest);;
+insersion_sort (snd (randlist 10 1.0 []));;
