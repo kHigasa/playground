@@ -95,7 +95,50 @@ let rec insert x = function
   [] -> [x]
   | y :: rest when x < y -> x :: (y :: rest)
   | y :: rest -> y :: (insert x rest);;
-let rec insersion_sort = function
+let rec insertion_sort = function
   [] -> []
   | x :: rest -> insert x (insersion_sort rest);;
-insersion_sort (snd (randlist 10 1.0 []));;
+insertion_sort (snd (randlist 10 1.0 []));;
+(* Quick sort C.A.R Hoare<-分割統治法：divide-and-conquer method *)
+let rec partition pivot = function
+  [] -> ([], [])
+  | y :: rest -> let (left, right) = partition pivot rest in
+    if pivot < y then (left, y::right) else (y::left, right);;
+partition 7.0 [9.0; 1.0; 5.0; 4.0; 18.0];;
+let rec quick_sort = function
+  [] -> []
+  | pivot :: rest -> let (left, right) = partition pivot rest in
+    quick_sort left @ (pivot :: quick_sort right);;
+quick_sort (snd (randlist 10 1.0 []));;
+let rec partition left right pivot = function (* 末尾再帰的 *)
+  [] -> (left, right)
+  | y :: rest ->
+    if pivot < y then partition left (y::right) pivot rest
+    else partition (y::left) right pivot rest;;
+partition [] [] 7.0 [9.0; 1.0; 5.0; 4.0; 18.0];;
+let rec quick_start = function
+  [] -> []
+  | pivot :: rest -> let (left, right) = partition [] [] pivot rest in
+    quick_sort left @ (pivot :: quick_sort right);;
+quick_sort (snd (randlist 10 1.0 []));;
+let rec quick_start = function
+  [] -> []
+  | pivot :: rest ->
+    let rec partition left right = function
+      [] -> (left, right)
+      | y :: ys ->
+        if pivot < y then partition left (y::right) ys
+        else partition (y::left) right ys in
+        let (left, right) = partition [] [] rest in (quick_sort left) @ (pivot :: quick_sort right);;
+quick_sort (snd (randlist 10 1.0 []));;
+let rec quick_sort = function
+  ([] | [_]) as l -> l (* or pattern, as pattern *)
+  | pivot :: rest ->
+    let rec partition left right = function
+      [] -> (quick_sort left) @ (pivot :: quick_sort right)
+      | y :: ys ->
+        if pivot < y then partition left (y::right) ys
+        else partition (y::left) right ys in partition [] [] rest;;
+quick_sort (snd (randlist 10 1.0 []));;
+insertion_sort (snd (randlist 10000 1.0 []));;
+quick_sort (snd (randlist 10000 1.0 []));;

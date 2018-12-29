@@ -1,4 +1,4 @@
-# chap01
+## chap01
 
 *OCaml is strongly static typed language.*
 弱い型付けのCなどとは違い、静的型検査によってプログラムの安全性が保証される。
@@ -82,3 +82,7 @@
 - listの定義は再帰的。
 
 - 要素を並べたlist表現は単に`::`infix operatorを用いた略記法。
+
+- **matching clause**：`match expr0 with pat1 -> expr1 | ... | patn -> exprn`
+
+## chap06
