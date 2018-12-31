@@ -167,3 +167,41 @@ let rtree =
     RB ("f", [RLf])
   ]);;
 tree_of_rtree rtree;;
+(* 無限列 *)
+type intseq = Cons of int * (int -> intseq);;
+let rec f x = Cons(x+1, f);;
+f 0;;
+f 1;;
+let rec step2 x = Cons(x+2, step2);;
+step2 1;;
+let Cons(x1, f1) = step2 0
+let Cons(x2, f2) = f1 x1
+let Cons(x3, f3) = f2 x2;;
+let rec step n x = Cons(x+n, step (n+1));;
+let Cons(x1,f1) = step 1 0
+let Cons(x2,f2) = f1 x1
+let Cons(x3,f3) = f2 x2
+let Cons(x4,f4) = f3 x3
+let Cons(x5,f5) = f4 x4;;
+let rec nthseq n (Cons(x, f)) =
+  if n = 1 then x
+  else nthseq (n-1) (f x);;
+nthseq 7 (step2 0);;
+nthseq 6 (step 1 0);;
+let is_prime x =
+  let rec is_divisible_from_2_to n =
+    (n > 1) && ((x mod n = 0) || is_divisible_from_2_to (n-1)) in
+    not (is_divisible_from_2_to (x-1));;
+is_prime 3;;
+is_prime 9;;
+is_prime 97;;
+let rec next_prime x =
+  if is_prime (x+1) then x+1
+  else next_prime (x+1);;
+next_prime 7;;
+next_prime 20;;
+next_prime 97;;
+let rec prime_seq x =
+  if is_prime (x+1) then Cons(x+1, prime_seq)
+  else prime_seq (x+1);;
+nthseq 20 (prime_seq 1);;
