@@ -76,3 +76,94 @@ fact 3;;
 fact (-10);;
 type ('a, 'b) sum = Left of 'a | Right of 'b;;
 [Left 3; Right "foo"];;
+(* 二分木：binary tree *)
+type 'a tree = Lf | Br of 'a * 'a tree * 'a tree;;
+(* 木のノード数 *)
+let rec size = function
+    Lf -> 0
+  | Br (_, left, right) -> 1 + size left + size right;;
+(* 木の深さ *)
+let rec depth = function
+    Lf -> 0
+  | Br (_, left, right) -> 1 + max (depth left) (depth right);;
+(* complete binary tree *)
+let comptree = Br (1, Br (2, Br (4, Lf, Lf), Br (5, Lf, Lf)), Br (3, Br (6, Lf, Lf), Br (7, Lf, Lf)));;
+size comptree;;
+depth comptree;;
+(* 行きがけ順 *)
+let rec preorder = function
+    Lf -> []
+  | Br (x, left, right) -> x :: (preorder left) @ (preorder right);;
+preorder comptree;;
+(* 通りがけ順 *)
+let rec inorder = function
+    Lf -> []
+  | Br (x, left, right) -> (inorder left) @ (x :: inorder right);;
+inorder comptree;;
+(* 帰りがけ順 *)
+let rec postorder = function
+    Lf -> []
+  | Br (x, left, right) -> (postorder left) @ (postorder right) @ [x];;
+postorder comptree;;
+let rec preord t l =
+  match t with
+    Lf -> l
+  | Br (x, left, right) -> x :: (preord left (preord right l));;
+preord comptree [];;
+(* binary search tree *)
+let rec mem t x =
+  match t with
+    Lf -> false
+  | Br (y, left, right) ->
+      if x = y then true
+      else if x < y then mem left x
+      else mem right x;;
+let rec add t x =
+  match t with
+    Lf -> Br (x, Lf, Lf)
+  | (Br (y, left, right) as whole) when x = y -> whole
+  | Br (y, left, right) when x < y -> Br (y, add left x, right)
+  | Br (y, left, right) -> Br (y, left, add right x);;
+(* rose tree：子ノードの数が不定 *)
+type 'a rosetree = RLf | RBr of 'a * 'a rosetree list;;
+(* XML:eXtensible Markup Language *)
+type ('a, 'b) xml = XLf of 'b option | XBr of 'a * ('a, 'b) xml list;;
+let addressbook =
+  XBr ("addressbook", [
+    XBr ("person", [
+      XBr ("name", [
+        XLf (Some "Atsushi Igarashi")]);
+        XBr ("tel", [XLf (Some "075-123-4567")])
+    ]);
+    XBr ("person", [XLf None]);
+    XBr ("person", [XLf None])
+  ]);;
+let rec string_of_xml = function
+    XBr (tag, xml_list) -> "<" ^ tag ^ ">" ^ string_of_xmllist xml_list ^ "</" ^ tag ^ ">"
+  | XLf None -> ""
+  | XLf (Some s) -> s
+  and string_of_xmllist = function
+      [] -> ""
+    | xml :: rest -> string_of_xml xml ^ string_of_xmllist rest;;
+string_of_xml addressbook;;
+let rec rosetree_of_tree = function
+    Lf -> RLf
+  | Br (a, left, right) -> RBr(a, map rosetree_of_tree [left; right]);;
+let rec tree_of_rtree = function
+    RLf -> Br (None, Lf, Lf)
+  | RBr (a, rtrees) -> Br (Some a, tree_of_rtreelist rtrees, Lf)
+  and tree_of_rtreelist = function
+      [] -> Lf
+    | rtree :: rest -> let Br (a, left, Lf) = tree_of_rtree rtree in
+                       Br (a, left, tree_of_rtreelist rest);;
+let rtree =
+  RBr("a", [
+    RBr ("b", [
+      RBr ("c", [RLf]);
+      RLf;
+      RBr ("d", [RLf])
+    ]);
+    RBr ("e", [RLf]);
+    RB ("f", [RLf])
+  ]);;
+tree_of_rtree rtree;;
