@@ -51,4 +51,20 @@ let map_sqrt l =
     else sqrt x in try Some (map sqrt' l) with Invalid_argument "sqrt'" -> None;;
 map_sqrt [1.0; 2.0; 0.25];;
 map_sqrt [1.0; -2.0; 0.25];;
-
+Division_by_zero;;
+raise;;
+(* 新しい例外の宣言 *)
+exception Foo;;
+exception Bar of int;;
+let rec find' x = function
+    [] -> raise Foo
+  | a :: l when a = x -> 1
+  | _ :: l -> 1 + find' x l
+  let find x l = try find' x l with Foo -> 0;;
+let exnlist = [Bar 3; Foo];;
+let f = function
+    Foo -> 0
+  | x -> raise x;;
+f Foo;;
+f (Bar 5);;
+failwith "foo";;
