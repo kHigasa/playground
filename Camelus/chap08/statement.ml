@@ -77,3 +77,45 @@ let (get, set) =
 "abc" :: get ();;
 set ["abc"];;
 1 :: get ();;
+(* 逐次実行 *)
+ignore;;
+let print_hello () = print_string "Hello, "; 0;;
+print_hello (); print_string "World";;
+ignore (print_hello ()); print_string "World\n";;
+(* ;とifはifの方が結合が強い *)
+let f1 b = if b then print_string "a"; print_string "b\n";;
+let f2 b = (if b then print_string "a"); print_string "b\n";;
+f1 false;;
+f1 true;;
+f2 false;;
+let f3 b = if b then (print_string "a"; print_string "b");;
+f3 false;;
+(* 文の並びを囲むときは括弧ではなくbegin/endを使うほうが良い *)
+let f3 b = if b then begin print_string "a"; print_string "b" end;;
+(* 繰り返し *)
+let fact n =
+  let i = ref 1 and res = ref 1 in
+  while (!i <= n) do
+    res := !res * !i; i := !i+1
+  done;
+  !res;;
+fact 5;;
+let parrot () =
+  let s = ref "" in
+  while (s := read_line (); !s <> ".") do
+    print_string !s;
+    print_endline !s
+  done;;
+parrot ();;
+(* 繰り返し構文を再帰関数で書く *)
+let rec whle condition body =
+  if condition () then begin body (); whle condition body end;;
+let fact n =
+  let i = ref 1 and res = ref 1 in
+  whle (fun () -> (!i <= n)) (fun () -> res := !res * !i; i := !i+1);
+  !res;;
+fact 5;;
+let rec iter f = function
+    [] -> ()
+  | a :: rest -> begin f a; iter f rest end;;
+iter (fun s -> print_string "Station:"; print_endline s) ["Tokyo"; "Shinagawa"; "Shin-Yokohama"; "Nagoya"; "Kyoto"; "Shin-Osaka"];;
