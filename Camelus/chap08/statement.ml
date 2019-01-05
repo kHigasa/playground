@@ -145,3 +145,21 @@ take q;;
 take q;;
 add 4 q; take q;;
 ignore (take q); add 5 q; peek q;;
+(* ファイルから入力用チャネルを作成 *)
+open_in;;
+(* チャネルからの読み込み *)
+input_char;;
+input_line;;
+input_byte;;
+(* チャネルを閉じる *)
+close_in;;
+(* 出力 *)
+open_out;;
+output_char;;
+output_string;;
+output_byte;;
+close_out;;
+(stdin, stdout, stderr);;
+let s = "japan";;
+print_string s;;
+output_string stdout s;;
