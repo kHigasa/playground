@@ -132,3 +132,7 @@
 - **signature**：`sig``end`で囲まれた部分全体。モジュール全体の型のようなもの。
 
 - \<abstr>：定義内容の隠蔽された型の値
+
+## chap10
+
+- batch compiler：`ocamlc` -> gen byte code `ocamlopt` -> gen native code
