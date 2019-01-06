@@ -1,0 +1,33 @@
+List.length [5; 6; 8];;
+List.concat [[4; 35; 2]; [1]; [9; -4]];;
+let q = Queue.create();;
+Queue.add 1 q; Queue.add 2 q;;
+Queue.take q;;
+Queue.peek q;;
+Queue.take q;;
+Queue.take q;;
+Array.make;;
+Array.make 4 'a';;
+Array.init;;
+Array.init 9 (fun i -> char_of_int (i + 48));;
+let x = 110;;
+Printf.printf "decimal: %d hexadecimal: %x string: %s\n" x x "foo";;
+Printf.printf "pad with zero: %04d\n" 5;;
+Printf.fprintf stdout "decimal: %d hexadecimal: %x string: %s\n" x x "foo";;
+Printf.sprintf "decimal: %d hexadecimal: %x string: %s\n" x x "foo";;
+let f name age = name ^ (if age < 18 then ", you cannot vote." else ", you can vote.");;
+let g s = Scanf.sscanf s "%s is %d years old." f;;
+g "Higasa is 20 years old.";;
+g "I am 15 years old.";;
+g "He is 5 years old.";;
+format_of_string "abc %s def %d";;
+(* 非標準ライブラリモジュール *)
+#load "nums.cma";;
+Num.add_num;;
+open List;;
+length [3; 9; 10];;
+let x = Num.Int 1 and y = Num.Int 3;;
+Num.(+/) x y;;
+(* モジュール内で定義された中置演算子を中置演算子として使うために読み込む *)
+open Num;;
+string_of_num (x // y +/ y // x);;
