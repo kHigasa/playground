@@ -138,3 +138,7 @@
 - batch compiler：`ocamlc` -> gen byte code `ocamlopt` -> gen native code
 
 ## chap11
+
+- **functor適用**：`functor_name ( module_expr )`
+
+- ファンクタは返り値の型が引数の値に依存する依存型である。ファンクタが適用されたときに生成されるモジュールのシグネチャが引数として与えられるストラクチャそのものに依存する。
