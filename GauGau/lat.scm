@@ -146,3 +146,40 @@
       (else (or (member* a (car l))
                 (member* a (cdr l)))))))
 
+(define rember-f
+  (lambda (test?)
+    (lambda (a l)
+      (cond
+        ((null? l) (quote ()))
+        ((test? (car l) a) (cdr l))
+        (else (cons (car l)
+                    ((rember-f test?) a
+                                      (cdr l))))))))
+
+(define seqL
+  (lambda (new old l)
+    (cons new (cons old l))))
+
+(define seqR
+  (lambda (new old l)
+    (cons old (cons new l))))
+
+(define seqS
+  (lambda (new old l)
+    (cons new l)))
+
+(define insert-g
+  (lambda (seq)
+    (lambda (new old l)
+      (cond
+        ((null? l) (quote ()))
+        ((eq? (car l) old)
+         (seq new old (cdr l)))
+        (else (cons (car l)
+                    ((insert-g seq) new old
+                                    (cdr l))))))))
+
+(define insertR (insert-g seqR))
+(define insertL (insert-g seqL))
+(define subst (insert-g seqS))
+
