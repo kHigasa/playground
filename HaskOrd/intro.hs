@@ -45,3 +45,19 @@ findKey key xs = foldr
                    (\(k, v) acc -> if key == k then Just v else acc)
                    Nothing xs
 
+class Functor f where
+    fmap :: (a -> b) -> f a -> f b
+
+instance Functor [] where
+    fmap = map
+
+instance Functor Maybe where
+    fmap f (Just x) = Just (f x)
+    fmap f Nothing = Nothing
+
+instance Functor (Either a) where
+    fmap f (Right x) = Right (f x)
+    fmap f (Left x) = Left x
+
+--data Either a b = Left a | Right b
+
