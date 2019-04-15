@@ -8,6 +8,7 @@ My exercising space.
     - C
     - C++
     - Assembly
+    - SML/NJ
     - OCaml
     - CLisp
     - Scheme
