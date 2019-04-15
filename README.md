@@ -7,6 +7,7 @@ My exercising space.
 - Language
     - C
     - C++
+    - Assembly
     - OCaml
     - CLisp
     - Scheme
