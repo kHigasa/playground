@@ -7,7 +7,7 @@ My exercising space.
 - Language
     - C
     - C++
-    - Ocaml
+    - OCaml
     - CLisp
     - Scheme
     - Clojure
@@ -18,6 +18,7 @@ My exercising space.
     - Java
 
 - Library
+    - (np, pd, plt)
     - scikit-learn
     - Tensorflow
 
