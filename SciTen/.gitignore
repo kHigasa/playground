@@ -1,3 +1,4 @@
 datasets/*
 jupyter.sh
 .ipynb_checkpoints/*
+tf_logs/*
