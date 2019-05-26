@@ -23,4 +23,5 @@ My exercising space.
     - (np, pd, plt)
     - scikit-learn
     - Tensorflow
+    - Keras
 
